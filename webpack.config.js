@@ -1,6 +1,11 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const webpack = require('webpack');
+const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const StyleLintPlugin = require('stylelint-webpack-plugin');
+const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 
 const PATHS = {
     source: path.join(__dirname, 'source'),
@@ -8,13 +13,90 @@ const PATHS = {
 };
 
 module.exports = {
-    entry: PATHS.source + '/index.js',
+    // Вход
+    entry: {
+        'index': PATHS.source + '/pages/index/index.js',
+        'blog': PATHS.source + '/pages/blog/blog.js'
+    },
+    // Выход
     output: {
         path: PATHS.build,
-        filename: '[name].js'
+        filename: './js/[name].js'
     },
+
+    // Плагины
     plugins: [
-        new HtmlWebpackPlugin({title: 'webpack app'}),
-        new CleanWebpackPlugin('build')
-    ]
+        new HtmlWebpackPlugin({
+            filename: 'index.html',
+            chunks: ['index', 'common'],
+            template: PATHS.source + '/pages/index/index.pug'
+        }),
+        new HtmlWebpackPlugin({
+            filename: 'blog.html',
+            chunks: ['blog', 'common'],
+            template: PATHS.source + '/pages/blog/blog.pug'
+        }),
+        new CleanWebpackPlugin('build'),
+
+        // extract css
+        new ExtractTextPlugin('./css/[name].css'),
+
+        // (!) плагин не запускается
+        // new webpack.optimize.CommonsChunkPlugin({
+        //     name: 'common'
+        // }),
+
+        new OptimizeCssAssetsPlugin({
+            cssProcessorOptions: { discardComments: {removeAll: true} }
+        }),
+        new StyleLintPlugin({
+            configFile: './.stylelintrc',
+        }),
+        new webpack.ProvidePlugin({
+            $: 'jquery',
+            jQuery: 'jquery'
+        }),
+        new UglifyJSPlugin()
+    ],
+    module: {
+        //Правила
+        rules: [
+            {
+                test: /\.pug$/,
+                loader: 'pug-loader',
+                options: {
+                    pretty: true
+                }
+            },
+            {
+                test: /\.scss$/,
+                use: ExtractTextPlugin.extract({
+                    publicPath: '../',
+                    use: ['css-loader','sass-loader'],
+                }),
+            },
+            {
+                test: /\.css$/,
+                use: ExtractTextPlugin.extract({
+                    fallback: 'style-loader',
+                    use: ['css-loader'],
+                }),
+            },
+            {
+                test: /\.js$/,
+                enforce: "pre",
+                loader: "eslint-loader",
+                options: {
+                    fix: true
+                }
+            },
+            {
+                test: /\.(jpg|png|svg)$/,
+                loader: 'file-loader',
+                options: {
+                    name: 'images/[name].[ext]'
+                }
+            }
+        ]
+    }
 };
