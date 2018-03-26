@@ -1,0 +1,114 @@
+extends ../base
+block head
+    title about page
+block content
+    section.section.hero
+        .hero__back
+            .hero__header
+                .hero__header-links
+                    ul.socials.hero__header-links-list
+                        li.socials__item 1
+                            a.socials__item-vk(href="")
+                        li.socials__item 2
+                            a.socials__item-github(href="")
+                        li.socials__item 3
+                            a.socials__item-linkedIn(href="")
+                .hero__header-gamb
+                    img.hero__header-gamb-pic(src="../source/pages/about/hamburger.png", alt="gamburger")
+            .hero__title
+                img.hero__title-pic(src="", alt="")
+            .arrow-down.hero__scroll-button
+        .user.hero__user
+            .user__image
+                img.user__image-pic(src="../source/pages/about/avatar.png", alt="picture")
+            .user__description
+                .user__name Андрей Першин
+                .user__text Личный сайт веб разработчика
+    section.section.about
+        .about__left
+            .triangle.about__triangle-left
+                svg.triangle-shape.triangle-shape-fill--white
+            .about__left-title
+                .block-title Обо мне
+            .about__left-description
+                .user-description
+                    .user-description__image
+                        img.user-desription__image-pic(src="", alt="")
+                    .user-description__title
+                        .block-subtitle Кто я
+                    .user-description__text.text-content
+                        p Я веб разработчик из Москвы. Мне 33 года. Я занимаюсь разработкой современных сайтов и приложений. Мне нравится делать интересные и современные проекты.
+                        p Этот сайт я сделал в рамках обучения в Школе онлайн образования LoftSchool. Чуть позже я освежу в нём свой контент. А пока посмотрите, как тут всё классно и красиво!
+        .about__right
+            .triangle.about__triangle-right
+                svg.triangle-shape.triangle-shape-fill--beige
+            .about__right-title
+                .block-subtitle Чем я могу быть полезен
+            .about__right-description.text-content
+                p Больше всего меня привлекет Frontend разработка, но я также знаком и могу решать не сложные задачи на Backend. Но давайте по порядку.
+            .about__right-content
+                ul.skills-list
+                    li.skills-item
+                        .skills-item-name Frontend
+                        ul.skills-image-list
+                            li.skills-image-item
+                    li.skills-item
+                        .skills-item-name Backend
+                        ul.skills-image-list
+                            li.skills-image-item
+                    li.skills-item
+                        .skills-item-name WorkFlow
+                        ul.skills-image-list
+                            li.skills-image-item
+    section.section.map
+        .google-map
+        .map__data
+            .contacts
+                .block-subtitle Контакты
+                ul.contacts__list
+                    li.contacts__list-item
+                        .contacts__list-item-image
+                            img.contacts__list-item-image-pic(src="", alt="")
+                        .contacts__list-item-name anderbite
+                    li.contacts__list-item
+                        .contacts__list-item-image
+                            img.contacts__list-item-image-pic(src="", alt="")
+                        .contacts__list-item-name aspershi@gmail.com
+                    li.contacts__list-item
+                        .contacts__list-item-image
+                            img.contacts__list-item-image-pic(src="", alt="")
+                        .contacts__list-item-name +7 926 857 62 75
+                    li.contacts__list-item
+                        .contacts__list-item-image
+                            img.contacts__list-item-image-pic(src="", alt="")
+                        .contacts__list-item-name г. Москва
+    footer.footer
+        .footer__left
+            .footer__left-description Этот сайт я сделал в рамках обучения в Школе онлайн образования LoftSchool. 
+            .footer__left-name
+                p © Андрей Першин
+                p Создано с любовью в LoftSchool | 2018
+        .footer__mid
+            ul.footer__mid-sheets-list
+                li.footer__mid-sheets-list-item Мои работы
+                    a.footer__mid-sheets-list-item-link(href="")
+                li.footer__mid-sheets-list-item Обо мне
+                    a.footer__mid-sheets-list-item-link(href="")
+                li.footer__mid-sheets-list-item Блог
+                    a.footer__mid-sheets-list-item-link(href="")
+                li.footer__mid-sheets-list-item Авторизация
+                    a.footer__mid-sheets-list-item-link(href="")
+            .footer__mid-socials
+                ul.socials.footer__mid-socials-list
+                    li.socials__item
+                        a.socials__item-vk(href="")
+                    li.socials__item
+                        a.socials__item-github(href="")
+                    li.socials__item
+                        a.socials__item-linkedIn(href="")
+        .footer__right
+            ul.footer__right-list
+                li.footer__right-item anderbite
+                li.footer__right-item aspershi@gmail.com
+                li.footer__right-item +7 926 857 62 75
+                li.footer__right-item г. Москва

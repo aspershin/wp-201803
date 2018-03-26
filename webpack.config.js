@@ -7,6 +7,9 @@ const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const StyleLintPlugin = require('stylelint-webpack-plugin');
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 
+const HOST = process.env.HOST || 'localhost';
+const PORT = process.env.PORT || 8080;
+
 const PATHS = {
     source: path.join(__dirname, 'source'),
     build: path.join(__dirname, 'build')
@@ -16,7 +19,8 @@ module.exports = {
     // Вход
     entry: {
         'index': PATHS.source + '/pages/index/index.js',
-        'blog': PATHS.source + '/pages/blog/blog.js'
+        'blog': PATHS.source + '/pages/blog/blog.js',
+        'about': PATHS.source + '/pages/about/about.js'
     },
     // Выход
     output: {
@@ -36,7 +40,12 @@ module.exports = {
             chunks: ['blog', 'common'],
             template: PATHS.source + '/pages/blog/blog.pug'
         }),
-        new CleanWebpackPlugin('build'),
+        new HtmlWebpackPlugin({
+            filename: 'about.html',
+            chunks: ['about', 'common'],
+            template: PATHS.source + '/pages/about/about.pug'
+        }),
+        // new CleanWebpackPlugin('build'),
 
         // extract css
         new ExtractTextPlugin('./css/[name].css'),
@@ -56,7 +65,8 @@ module.exports = {
             $: 'jquery',
             jQuery: 'jquery'
         }),
-        new UglifyJSPlugin()
+        new UglifyJSPlugin(),
+        new webpack.HotModuleReplacementPlugin()
     ],
     module: {
         //Правила
@@ -98,5 +108,16 @@ module.exports = {
                 }
             }
         ]
+    },
+    devServer:{
+        stats: 'errors-only',
+        hotOnly: true,
+        contentBase: path.resolve(__dirname, 'build'),
+        compress: true,
+        inline: true,
+        progress: true,
+        historyApiFallback: true,
+        host: HOST,
+        port: PORT,
     }
 };
